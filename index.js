@@ -6,11 +6,11 @@ function main()
 
     var pokemonName = prompt("Pokémon name: ");
     console.log("IVs:\n");
-    var atkIV = prompt("ATK: ");
-    var defIV = prompt("DEF: ");
-    var hpIV = prompt("HP: ");
+    var atkIV = parseInt(prompt("ATK: "));
+    var defIV = parseInt(prompt("DEF: "));
+    var hpIV = parseInt(prompt("HP: "));
     var league = getLeagueCp(prompt("PVP League (GL/UL/ML): "));
-    var IVFloor = prompt("Friendship level (1 - good, 2 - great, 3 - ultra, 5 - best): ");
+    var IVFloor = parseInt(prompt("Friendship level (1 - good, 2 - great, 3 - ultra, 5 - best): "));
     var isLuckyTrade = prompt("Lucky trade? (Y/N) ");
     if (isLuckyTrade.toUpperCase() == 'Y')
     {
@@ -20,44 +20,30 @@ function main()
     var allResults = pvpivcalc(league, pokeByName(pokemonName), 0, parseInt(atkIV), parseInt(defIV), parseInt(hpIV), 100, false, false, true);
     var rank = allResults[0].rank;
 
-    allResults.forEach(combination => {
-        Object.keys(combination).forEach(key => console.log(key + ': ' + combination[key]));
-        console.log('\n');
-    });
-
-    console.log();
     var tradeResults = pvpivcalc(league, pokeByName(pokemonName), IVFloor, parseInt(atkIV), parseInt(defIV), parseInt(hpIV), 100, false, false, false);
-    
-    console.log('===================================');
-    console.log('Trade Results:');
-    console.log('===================================');
-    tradeResults.forEach(combination => {
-        Object.keys(combination).forEach(key => console.log(key + ': ' + combination[key]));
-        console.log('\n');
+
+    var higher = 0;
+    var lower = 0;
+
+    tradeResults.forEach(tradeResult => {
+        var matchingResult = allResults.find(result => 
+            result.atk == tradeResult.atk && 
+            result.def == tradeResult.def && 
+            result.hp == tradeResult.hp
+        );
+        if (matchingResult.rank < rank)
+        {
+            higher++;
+        }
+        else if (matchingResult.rank > rank)
+        {
+            lower++;
+        }
     });
 
-    // var higher = 0;
-    // var lower = 0;
-
-    // tradeResults.forEach(tradeResult => {
-    //     var matchingResult = allResults.find(result => 
-    //         result.atk == tradeResult.atk && 
-    //         result.def == tradeResult.def && 
-    //         result.hp == tradeResult.hp
-    //     );
-    //     if (matchingResult.rank > rank)
-    //     {
-    //         higher++;
-    //     }
-    //     else if (matchingResult.rank < rank)
-    //     {
-    //         lower++;
-    //     }
-    // });
-
-    // var chanceToImprove = higher / (higher + lower) * 100;
-    // console.log(`The chance your ${pokemonName} improves upon performing a ${getTradePartnerVerbose(IVFloor)} trade is ${chanceToImprove}%.`);
-
+    var chanceToImprove = higher / (higher + lower) * 100;
+    chanceToImprove = Math.round(chanceToImprove * 100) / 100;
+    console.log(`The chance your ${pokemonName} improves upon performing a ${getTradePartnerVerbose(IVFloor)} trade is ${chanceToImprove}%.`);
 }
 
 function getLeagueCp(league)
@@ -88,6 +74,8 @@ function getTradePartnerVerbose(IVFloor)
             return "best friend";
         case 12:
             return "lucky";
+        default:
+            return "UNKNOWN";
     }
 }
 
@@ -126,7 +114,7 @@ function cp(at, df, st, multiple2){
 
 
 function lvlCap(at, df, st, targetCP, cpm4, max_lvl){
-    cap = binarySearch(cpm4, (targetCP+1)*(targetCP+1)*100/(at*at*df * st))
+    cap = binarySearch(cpm4, (targetCP+1)*(targetCP+1)*100/(at*at*df * st));
     return cap>max_lvl?max_lvl:cap;
 }
 
@@ -191,7 +179,7 @@ function pvpivcalc(cp_cap, poke, iv_min, s_at, s_df, s_st, max_lvl, sprod, sstat
         });
     }
 
-    for (i=0;i<25;i++){
+    for (i=0;i<products.length;i++){
         combinations.push({
             rank: i+1,
             atk: products[i][2],

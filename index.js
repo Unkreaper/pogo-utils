@@ -4,35 +4,90 @@ function main()
 {
     const prompt = require("prompt-sync")();
 
-    var pokemonName = prompt("Pokémon name:");
+    var pokemonName = prompt("Pokémon name: ");
     console.log("IVs:\n");
-    var atkIV = prompt("ATK:");
-    var defIV = prompt("DEF:");
-    var hpIV = prompt("HP:");
-    var league = prompt("PVP League (GL/UL/ML):");
-    var friendship = prompt("Friendship level (good/great/ultra/best):");
-    var isLuckyTrade = prompt("Lucky trade? (no)");
+    var atkIV = prompt("ATK: ");
+    var defIV = prompt("DEF: ");
+    var hpIV = prompt("HP: ");
+    var league = getLeagueCp(prompt("PVP League (GL/UL/ML): "));
+    var IVFloor = prompt("Friendship level (1 - good, 2 - great, 3 - ultra, 5 - best): ");
+    var isLuckyTrade = prompt("Lucky trade? (Y/N) ");
+    if (isLuckyTrade.toUpperCase() == 'Y')
+    {
+        IVFloor = 12;
+    }
     
-    var results = pvpivcalc(getLeagueCp(league), pokeByName(pokemonName), 0, parseInt(atkIV), parseInt(defIV), parseInt(hpIV), 100, false, false);
+    var allResults = pvpivcalc(league, pokeByName(pokemonName), 0, parseInt(atkIV), parseInt(defIV), parseInt(hpIV), 100, false, false, true);
+    var rank = allResults[0].rank;
 
-    results.forEach(result => {
-        Object.keys(result).forEach(key => console.log(key + ': ' + result[key]));
+    allResults.forEach(combination => {
+        Object.keys(combination).forEach(key => console.log(key + ': ' + combination[key]));
         console.log('\n');
     });
+
+    console.log();
+    var tradeResults = pvpivcalc(league, pokeByName(pokemonName), IVFloor, parseInt(atkIV), parseInt(defIV), parseInt(hpIV), 100, false, false, false);
     
+    console.log('===================================');
+    console.log('Trade Results:');
+    console.log('===================================');
+    tradeResults.forEach(combination => {
+        Object.keys(combination).forEach(key => console.log(key + ': ' + combination[key]));
+        console.log('\n');
+    });
+
+    // var higher = 0;
+    // var lower = 0;
+
+    // tradeResults.forEach(tradeResult => {
+    //     var matchingResult = allResults.find(result => 
+    //         result.atk == tradeResult.atk && 
+    //         result.def == tradeResult.def && 
+    //         result.hp == tradeResult.hp
+    //     );
+    //     if (matchingResult.rank > rank)
+    //     {
+    //         higher++;
+    //     }
+    //     else if (matchingResult.rank < rank)
+    //     {
+    //         lower++;
+    //     }
+    // });
+
+    // var chanceToImprove = higher / (higher + lower) * 100;
+    // console.log(`The chance your ${pokemonName} improves upon performing a ${getTradePartnerVerbose(IVFloor)} trade is ${chanceToImprove}%.`);
 
 }
 
 function getLeagueCp(league)
 {
-    switch (league)
+    switch (league.toUpperCase())
     {
-        case 'GL':
-            return 1500;
         case 'UL':
             return 2500;
         case 'ML':
             return 999999;
+        case 'GL':
+        default:
+            return 1500;
+    }
+}
+
+function getTradePartnerVerbose(IVFloor)
+{
+    switch (IVFloor)
+    {
+        case 1:
+            return "good friend";
+        case 2:
+            return "great friend";
+        case 3:
+            return "ultra friend";
+        case 5:
+            return "best friend";
+        case 12:
+            return "lucky";
     }
 }
 
@@ -81,7 +136,7 @@ function lvlCap(at, df, st, targetCP, cpm4, max_lvl){
    return 0;
  }
 
-function pvpivcalc(cp_cap, poke, iv_min, s_at, s_df, s_st, max_lvl, sprod, sstats){
+function pvpivcalc(cp_cap, poke, iv_min, s_at, s_df, s_st, max_lvl, sprod, sstats, returnOwnRank){
     var cpm4,cpm2;
     cpm4 = cpmultiple_b4;
     cpm2 = cpmultiple_b2;
@@ -125,13 +180,18 @@ function pvpivcalc(cp_cap, poke, iv_min, s_at, s_df, s_st, max_lvl, sprod, sstat
     p_scale = (stat_product-products[products.length-1][0])/(products[0][0]-products[products.length-1][0]);
     
     var combinations = [];
-    combinations.push({
-        rank: rank,
-        atk: s_at,
-        def: s_df,
-        hp: s_st,
-    });
-    for (i=0;i<10;i++){
+    
+    if (returnOwnRank)
+    {
+        combinations.push({
+            rank: rank,
+            atk: s_at,
+            def: s_df,
+            hp: s_st,
+        });
+    }
+
+    for (i=0;i<25;i++){
         combinations.push({
             rank: i+1,
             atk: products[i][2],

@@ -1,117 +1,116 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='index.js'></script>
 </head>
+
 <body>
-    <form action="javascript:calculate()">
-        <br>
-        <!-- <label for="pokemonName">Pokémon</label> <br> -->
-        <input type="text" id="pokemonName" name="pokemonName" placeholder="Pokémon"> <br> <br>
+    <br>
+    <input type="text" id="pokemonName" name="pokemonName" placeholder="Pokémon"> <br> <br>
 
-        <table>
-            <tr>
-                <th> <label for="atkIV">Atk</label> </th>
-                <th> <label for="defIV">Def</label> </th>
-                <th> <label for="hpIV">HP</label> </th>
-            </tr>
+    <table>
+        <tr>
+            <th> <label for="atkIV">Atk</label> </th>
+            <th> <label for="defIV">Def</label> </th>
+            <th> <label for="hpIV">HP</label> </th>
+        </tr>
 
-            <tr>
-                <td>
-                    <select id="atkIV" name="atkIV">
-                        <option>&nbsp;</option>
-                        <option value="15">15</option>
-                        <option value="14">14</option>
-                        <option value="13">13</option>
-                        <option value="12">12</option>
-                        <option value="11">11</option>
-                        <option value="10">10</option>
-                        <option value="9">9</option>
-                        <option value="8">8</option>
-                        <option value="7">7</option>
-                        <option value="6">6</option>
-                        <option value="5">5</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                        <option value="0">0</option>
-                    </select>
-                </td>
+        <tr>
+            <td>
+                <select id="atkIV" name="atkIV">
+                    <option>&nbsp;</option>
+                    <option value="15">15</option>
+                    <option value="14">14</option>
+                    <option value="13">13</option>
+                    <option value="12">12</option>
+                    <option value="11">11</option>
+                    <option value="10">10</option>
+                    <option value="9">9</option>
+                    <option value="8">8</option>
+                    <option value="7">7</option>
+                    <option value="6">6</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                    <option value="0">0</option>
+                </select>
+            </td>
 
-                <td>
-                    <select id="defIV" name="defIV">
-                        <option>&nbsp;</option>
-                        <option value="15">15</option>
-                        <option value="14">14</option>
-                        <option value="13">13</option>
-                        <option value="12">12</option>
-                        <option value="11">11</option>
-                        <option value="10">10</option>
-                        <option value="9">9</option>
-                        <option value="8">8</option>
-                        <option value="7">7</option>
-                        <option value="6">6</option>
-                        <option value="5">5</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                        <option value="0">0</option>
-                    </select>
-                </td>
+            <td>
+                <select id="defIV" name="defIV">
+                    <option>&nbsp;</option>
+                    <option value="15">15</option>
+                    <option value="14">14</option>
+                    <option value="13">13</option>
+                    <option value="12">12</option>
+                    <option value="11">11</option>
+                    <option value="10">10</option>
+                    <option value="9">9</option>
+                    <option value="8">8</option>
+                    <option value="7">7</option>
+                    <option value="6">6</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                    <option value="0">0</option>
+                </select>
+            </td>
 
-                <td>
-                    <select id="hpIV" name="hpIV">
-                        <option>&nbsp;</option>
-                        <option value="15">15</option>
-                        <option value="14">14</option>
-                        <option value="13">13</option>
-                        <option value="12">12</option>
-                        <option value="11">11</option>
-                        <option value="10">10</option>
-                        <option value="9">9</option>
-                        <option value="8">8</option>
-                        <option value="7">7</option>
-                        <option value="6">6</option>
-                        <option value="5">5</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                        <option value="0">0</option>
-                    </select>
-                </td>
-            </tr>
-        </table> 
+            <td>
+                <select id="hpIV" name="hpIV">
+                    <option>&nbsp;</option>
+                    <option value="15">15</option>
+                    <option value="14">14</option>
+                    <option value="13">13</option>
+                    <option value="12">12</option>
+                    <option value="11">11</option>
+                    <option value="10">10</option>
+                    <option value="9">9</option>
+                    <option value="8">8</option>
+                    <option value="7">7</option>
+                    <option value="6">6</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                    <option value="0">0</option>
+                </select>
+            </td>
+        </tr>
+    </table>
 
-        <br>
+    <br>
 
-        <!-- <label for="league">PVP League</label> <br> -->
-        <select id="league" name="league">
-            <option value="GL">Great League</option>
-            <option value="UL">Ultra League</option>
-            <option value="ML">Master League</option>
-        </select> <br> <br>
+    <select id="league" name="league">
+        <option value="GL">Great League</option>
+        <option value="UL">Ultra League</option>
+        <option value="ML">Master League</option>
+    </select> <br> <br>
 
-        <!-- <label for="friendship">Friendship Level</label> <br> -->
-        <select id="friendship" name="friendship">
-            <option value="good">Good Friend</option>
-            <option value="great">Great Friend</option>
-            <option value="ultra">Ultra Friend</option>
-            <option value="best">Best Friend</option>
-        </select> <br> <br>
+    <select id="friendship" name="friendship">
+        <option value="good">Good Friend</option>
+        <option value="great">Great Friend</option>
+        <option value="ultra">Ultra Friend</option>
+        <option value="best">Best Friend</option>
+    </select> <br> <br>
 
-        <label for="lucky">Lucky Trade?</label> <br>
-        <input type="checkbox" id="lucky" name="lucky"> <br> <br>
+    <label for="lucky">Lucky Trade?</label> <br>
+    <input type="checkbox" id="lucky" name="lucky"> <br> <br>
 
-        <input type="submit" value="Submit">
+    <input type="submit" id="submitForm" value="Submit">
 
-    </form>
 </body>
+
+<script src='index.js'></script>
+
 </html>

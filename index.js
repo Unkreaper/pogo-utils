@@ -1,4 +1,0 @@
-function calculate()
-{
-    alert("hello!");
-}

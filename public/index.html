@@ -11,8 +11,9 @@
 
 <body>
     <br>
-    <input type="text" id="pokemonName" name="pokemonName" placeholder="Pokémon"> <br> <br>
+    <div id="pokemonList"></div>
 
+    <br>
     <table>
         <tr>
             <th> <label for="atkIV">Atk</label> </th>
@@ -98,10 +99,10 @@
     </select> <br> <br>
 
     <select id="friendship" name="friendship">
-        <option value="good">Good Friend</option>
-        <option value="great">Great Friend</option>
-        <option value="ultra">Ultra Friend</option>
-        <option value="best">Best Friend</option>
+        <option value="1">Good Friend (1)</option>
+        <option value="2">Great Friend (2)</option>
+        <option value="3">Ultra Friend (3)</option>
+        <option value="5">Best Friend (5)</option>
     </select> <br> <br>
 
     <label for="lucky">Lucky Trade?</label> <br>
@@ -109,8 +110,22 @@
 
     <input type="submit" id="submitForm" value="Submit">
 
+    <p id="outputText"></p>
+
 </body>
 
 <script src='index.js'></script>
+
+<script>
+    // pokedex.forEach(pokemon => document.getElementById("pokemon-list").append("<option value=\""+pokemon["name"]+"\">"));
+    var select = document.createElement('select');
+    select.id = 'pokemonName';
+    pokedex.forEach(pokemon => {
+        var option = document.createElement('option');
+        option.value = option.textContent = pokemon["name"];
+        select.appendChild(option);
+    });
+    document.getElementById('pokemonList').appendChild(select);
+</script>
 
 </html>
